@@ -2,6 +2,7 @@ import { Navigate, Outlet } from "react-router";
 import { useEffect } from "react";
 import { useMe } from "@/features/auth/useMe";
 import { useLogout } from "@/features/auth/useLogout";
+import Loader from "@/components/common/Loader";
 
 type ProtectedRouteProps = {
   allowedRoles?: ("user" | "admin")[];
@@ -30,7 +31,7 @@ export default function ProtectedRoute({
   }, [user, isLoading, allowedRoles, logout]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader/>
   }
 
   if (!user) {

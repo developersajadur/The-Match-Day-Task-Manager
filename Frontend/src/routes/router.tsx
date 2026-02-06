@@ -1,33 +1,41 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 
 import PublicAuthRoute from "./PublicAuthRoute";
-
-import AuthLayout from "@/layouts/AuthLayout";
-import Login from "@/pages/Login";
-import Register from "@/pages/Register";
-import UserLayout from "@/layouts/UserLayout";
 import ProtectedRoute from "./protectedRoutes";
 
+import AuthLayout from "@/layouts/AuthLayout";
+import UserLayout from "@/layouts/UserLayout";
+
+import Login from "@/pages/Login";
+import Register from "@/pages/Register";
+import TasksPage from "@/pages/Tasks";
+
 const router = createBrowserRouter([
-{
-  element: <ProtectedRoute allowedRoles={["user"]} />,
-  children: [
     {
-      element: <UserLayout />,
-      children: [
-        { path: "/dashboard", element: <UserDashboardHome /> },
-        {
-          path: "/dashboard/categories/:id",
-          element: <UserCategoryNotifications />,
-        },
-        {
-  path: "/dashboard/categories",
-  element: <CategoryBrowse />,
-}
-      ],
-    },
-  ],
-},
+    path: "/",
+    element: <Navigate to="/dashboard" replace />,
+  },
+
+  {
+    element: <ProtectedRoute allowedRoles={["user"]} />,
+    children: [
+      {
+        element: <UserLayout />,
+        children: [
+          {
+            path: "/dashboard/tasks",
+            element: <TasksPage />,
+          },
+
+          // Optional: redirect dashboard root → tasks
+          {
+            path: "/dashboard",
+            element: <TasksPage />,
+          },
+        ],
+      },
+    ],
+  },
 
   {
     element: <PublicAuthRoute />,

@@ -8,7 +8,7 @@ export interface CreateTaskPayload {
 
 export const getTasks = async () => {
   const res = await axios.get("/tasks");
-  return res.data;
+  return res.data.data;
 };
 
 export const createTask = async (payload: CreateTaskPayload) => {
@@ -24,5 +24,29 @@ export const updateTaskStatus = async ({
   status: TaskStatus;
 }) => {
   const res = await axios.patch(`/tasks/${id}/status`, { status });
+  return res.data;
+};
+
+
+export const deleteTask = async (id: string) => {
+  const res = await axios.delete(`/tasks/${id}`);
+  return res.data;
+};
+
+
+
+export interface UpdateTaskPayload {
+  title: string;
+  description?: string;
+}
+
+export const updateTask = async ({
+  id,
+  payload,
+}: {
+  id: string;
+  payload: UpdateTaskPayload;
+}) => {
+  const res = await axios.patch(`/tasks/${id}`, payload);
   return res.data;
 };

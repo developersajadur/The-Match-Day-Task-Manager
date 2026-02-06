@@ -13,6 +13,7 @@ export interface RegisterPayload {
 
 export const login = async (payload: LoginPayload) => {
   const res = await axios.post("/auth/login", payload)
+  localStorage.setItem("token", res.data.token)
   return res.data
 }
 
@@ -32,6 +33,7 @@ export const logout = async () => {
 
 export const register = async (payload: RegisterPayload) => {
   const res = await axios.post("/users/register", payload)
+    localStorage.setItem("token", res.data.token)
   return res.data
 }
 

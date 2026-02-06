@@ -23,11 +23,10 @@ export function UserSidebar() {
       <SidebarContent>
         <SidebarMenu>
 
-          {/* ✅ Only menu needed for this project */}
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Tasks"
-              onClick={() => navigate("/tasks")}
+              onClick={() => navigate("/dashboard/tasks")}
               className="group-data-[collapsible=icon]:justify-center"
             >
               <ListTodo className="shrink-0" />
