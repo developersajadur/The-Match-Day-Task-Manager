@@ -11,7 +11,7 @@ const createUser = catchAsync(async (req, res) => {
   res.cookie('token', (user as any).token, {
     httpOnly: true,
     secure: config.node_env === 'production',
-    sameSite: 'lax',
+    sameSite: 'none',
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 

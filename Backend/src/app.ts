@@ -6,6 +6,7 @@ import router from './app/routes';
 import notFound from './app/middlewares/notFound';
 import helmet from 'helmet';
 import { allowedOrigins } from './app/utils/cors';
+// import { allowedOrigins } from './app/utils/cors';
 const app = express();
 
 // parsers
@@ -25,6 +26,7 @@ app.use(
     credentials: true,
   }),
 );
+
 
 // Routes
 app.use('/api/v1', router);
