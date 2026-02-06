@@ -12,7 +12,7 @@ export type TJwtPayload = {
   email: string;
   role: string;
 };
- 
+
 const loginUser = async (payload: TLoginUser): Promise<{ token: string }> => {
   // console.log(payload);
   const user = await User.findOne({ email: payload?.email }).select(

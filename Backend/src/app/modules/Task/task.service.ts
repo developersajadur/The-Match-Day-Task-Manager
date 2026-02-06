@@ -3,9 +3,6 @@ import AppError from '../../errors/AppError';
 import { ITask, TTaskStatus } from './task.interface';
 import { Task } from './task.model';
 
-
-
-
 const createTask = async (
   payload: Partial<ITask>,
   userId: string,
@@ -46,7 +43,10 @@ const updateTaskStatus = async (
   }
 
   if (task.createdBy.toString() !== userId) {
-    throw new AppError(status.FORBIDDEN, 'You cannot update another user’s task');
+    throw new AppError(
+      status.FORBIDDEN,
+      'You cannot update another user’s task',
+    );
   }
 
   // Dependency rule
@@ -68,13 +68,14 @@ const updateTaskStatus = async (
     .sort({ priority: -1 })
     .select('priority');
 
-  const newPriority = lastTaskInTarget
-    ? lastTaskInTarget.priority + 1
-    : 1;
+  const newPriority = lastTaskInTarget ? lastTaskInTarget.priority + 1 : 1;
 
   // Simulated failure
   if (Math.random() < 0.2) {
-    throw new AppError(status.INTERNAL_SERVER_ERROR, 'Simulated backend failure');
+    throw new AppError(
+      status.INTERNAL_SERVER_ERROR,
+      'Simulated backend failure',
+    );
   }
 
   task.status = statusValue;
@@ -102,10 +103,7 @@ const reorderTask = async (
     taskStatus === 'Done' &&
     (!task.description || task.description.length <= 20)
   ) {
-    throw new AppError(
-      status.BAD_REQUEST,
-      'Description too short for Done',
-    );
+    throw new AppError(status.BAD_REQUEST, 'Description too short for Done');
   }
 
   const oldStatus = task.status;
@@ -155,11 +153,7 @@ const reorderTask = async (
   return task;
 };
 
-
-const deleteTask = async (
-  taskId: string,
-  userId: string,
-): Promise<ITask> => {
+const deleteTask = async (taskId: string, userId: string): Promise<ITask> => {
   const task = await Task.findById(taskId);
 
   if (!task) {
@@ -208,13 +202,11 @@ const updateTask = async (
   return task;
 };
 
-
-
 export const taskService = {
   createTask,
   getAllTasksPerUser,
   updateTaskStatus,
   deleteTask,
   reorderTask,
-  updateTask
+  updateTask,
 };

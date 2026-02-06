@@ -482,6 +482,9 @@ const sidebarMenuButtonVariants = cva(
    [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
   {
     variants: {
+      variant: {
+        default: "",
+      },
       size: {
         default: "h-9",
         sm: "h-8 text-xs",
@@ -489,6 +492,7 @@ const sidebarMenuButtonVariants = cva(
       },
     },
     defaultVariants: {
+      variant: "default",
       size: "default",
     },
   }

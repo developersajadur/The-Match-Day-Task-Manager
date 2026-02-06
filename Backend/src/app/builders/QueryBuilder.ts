@@ -28,7 +28,6 @@ class QueryBuilder<T> {
     const excludeFields = ['search', 'sort', 'limit', 'page', 'fields'];
     excludeFields.forEach((field) => delete queryCopy[field]);
 
-
     this.modelQuery = this.modelQuery.find(queryCopy as FilterQuery<T>);
     return this;
   }

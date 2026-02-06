@@ -14,7 +14,7 @@ const moduleRoutes = [
     path: '/users',
     route: userRoutes,
   },
-    {
+  {
     path: '/tasks',
     route: taskRoutes,
   },

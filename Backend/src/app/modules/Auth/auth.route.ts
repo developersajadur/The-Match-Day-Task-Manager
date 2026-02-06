@@ -13,7 +13,11 @@ router.post(
   AuthControllers.loginUser,
 );
 
-router.get('/me', auth(USER_ROLE.ADMIN, USER_ROLE.USER), AuthControllers.getMeForAuth);
+router.get(
+  '/me',
+  auth(USER_ROLE.ADMIN, USER_ROLE.USER),
+  AuthControllers.getMeForAuth,
+);
 router.post('/logout', AuthControllers.logout);
 
 export const authRoute = router;

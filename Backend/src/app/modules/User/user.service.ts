@@ -17,17 +17,17 @@ const CreateUser = async (payload: Partial<IUser>): Promise<IUser> => {
     role: 'user',
   });
 
-    const jwtPayload = {
-      userId: user?._id.toString(),
-      email: user?.email,
-      role: user?.role,
-    };
-  
-    const token = createToken(
-      jwtPayload,
-      config.jwt_token_secret as string,
-      config.jwt_token_expires_in as any,
-    );
+  const jwtPayload = {
+    userId: user?._id.toString(),
+    email: user?.email,
+    role: user?.role,
+  };
+
+  const token = createToken(
+    jwtPayload,
+    config.jwt_token_secret as string,
+    config.jwt_token_expires_in as any,
+  );
 
   return { user, token } as any;
 };
@@ -35,9 +35,9 @@ const CreateUser = async (payload: Partial<IUser>): Promise<IUser> => {
 const getMe = async (userId: string): Promise<IUser | null> => {
   const user = await User.findById(userId).select('-password');
   return user;
-}
+};
 
 export const userService = {
   CreateUser,
-  getMe
+  getMe,
 };

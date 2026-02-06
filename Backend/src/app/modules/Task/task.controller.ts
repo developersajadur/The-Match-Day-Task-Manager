@@ -3,8 +3,6 @@ import { taskService } from './task.service';
 import catchAsync from '../../helpers/catchAsync';
 import sendResponse from '../../helpers/sendResponse';
 
-
-
 const createTask = catchAsync(async (req, res) => {
   const userId = req.user.userId;
 
@@ -17,7 +15,6 @@ const createTask = catchAsync(async (req, res) => {
     data: task,
   });
 });
-
 
 const getAllTasksPerUser = catchAsync(async (req, res) => {
   const userId = req.user.userId;
@@ -33,7 +30,7 @@ const getAllTasksPerUser = catchAsync(async (req, res) => {
 
 const updateTaskStatus = catchAsync(async (req, res) => {
   const { id } = req.params;
-    const userId = req.user.userId;
+  const userId = req.user.userId;
   const { status: newStatus } = req.body;
 
   const task = await taskService.updateTaskStatus(id, newStatus, userId);
@@ -50,7 +47,7 @@ const deleteTask = catchAsync(async (req, res) => {
   const { id } = req.params;
   const userId = req.user.userId;
 
-   await taskService.deleteTask(id, userId);
+  await taskService.deleteTask(id, userId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -94,14 +91,11 @@ const updateTask = catchAsync(async (req, res) => {
   });
 });
 
-
-
-
 export const taskController = {
   createTask,
   getAllTasksPerUser,
   updateTaskStatus,
   deleteTask,
   reorderTask,
-  updateTask
+  updateTask,
 };

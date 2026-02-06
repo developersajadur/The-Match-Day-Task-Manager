@@ -1,6 +1,5 @@
 import z from 'zod';
 
-
 const createTaskSchema = z.object({
   body: z.object({
     title: z.string().min(1, 'Title is required'),
@@ -8,7 +7,6 @@ const createTaskSchema = z.object({
     priority: z.number().int().nonnegative().optional(),
   }),
 });
-
 
 const updateTaskStatusSchema = z.object({
   body: z.object({
@@ -30,17 +28,14 @@ const updateTaskSchema = z
       description: z.string().optional(),
     }),
   })
-  .refine(
-    (data) => data.body.title || data.body.description,
-    {
-      message: 'At least one field (title or description) must be provided',
-      path: ['body'],
-    },
-  );
+  .refine((data) => data.body.title || data.body.description, {
+    message: 'At least one field (title or description) must be provided',
+    path: ['body'],
+  });
 
 export const taskValidation = {
   createTaskSchema,
   updateTaskStatusSchema,
   reorderTaskSchema,
-  updateTaskSchema
+  updateTaskSchema,
 };
